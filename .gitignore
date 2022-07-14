@@ -30,7 +30,6 @@
 
 # Executables
 *.exe
-*.out
 *.app
 *.i*86
 *.x86_64
@@ -50,3 +49,19 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Report
+report/
+*.gcda
+*.gcno
+*.info
+
+# Log
+*.log
+
+# Build
+build/
+*.out
+
+# IDE
+.vscode/
