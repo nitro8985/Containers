@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 #include <stack>
+#include "../lib/s21_stack.h"
 
 class stack_test {
 
