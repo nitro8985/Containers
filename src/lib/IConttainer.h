@@ -1,5 +1,7 @@
+#ifndef SRC_LIB_ICONTAINER_H_
+#define SRC_LIB_ICONTAINER_H_
+
 #include <istream>
-#include <vector>
 
 namespace s21{
 
@@ -27,3 +29,5 @@ namespace s21{
         // virtual void clear() = 0;
     };
 }
+
+#endif  // SRC_LIB_ICONTAINER_H_
