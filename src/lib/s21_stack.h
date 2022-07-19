@@ -14,7 +14,8 @@ namespace s21 {
         using size_type = size_t;
 
      public:
-        stack() {}
+        stack() {
+        }
         stack(std::initializer_list<value_type> const& items);
         stack(const stack& s);
         stack(stack&& s);
@@ -30,13 +31,13 @@ namespace s21 {
         bool empty();
         size_type size();
 
-        void push();
+        void push(const_reference value);
         void pop();
         void swap(stack& other);
      private:
-      T* value = nullptr;
-      stack<T>* prev = nullptr;
-      size_type stack_size = 0;
+      T* value_ = nullptr;
+      stack<T>* prev_ = nullptr;
+      size_type* stack_size_ = nullptr;
 
      private:
         void delete_stack();

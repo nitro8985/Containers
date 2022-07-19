@@ -5,19 +5,19 @@ using namespace s21;
 template <class T>
 stack<T> stack<T>::operator=(stack&& s) {
     delete_stack();
-    // std::swap(*this, s);
-    value = s.value;
-    s.value = nullptr;
-    prev = s.prev;
-    s.prev = nullptr;
-    stack_size = s.stack_size;
-    s.stack_size = 0;
+    value_ = s.value_;
+    s.value_ = nullptr;
+    prev_ = s.prev_;
+    s.prev_ = nullptr;
+    stack_size_ = s.stack_size_;
+    s.stack_size_ = nullptr;
 
     return *this;
 }
 
 template <class T>
 stack<T> stack<T>::operator=(stack& s) {
+    delete_stack();
     copy_stack(s);
     return *this;
 }
@@ -34,64 +34,92 @@ stack<T>::stack(const stack& s) {
 
 template <class T>
 stack<T>::stack(stack&& s) {
-    
+    delete_stack();
+    value_ = s.value_;
+    s.value_ = nullptr;
+    prev_ = s.perv_;
+    s.prev_ = nullptr;
+    stack_size_ = s.stack_size_;
+    s.stack_size_ = nullptr;
 }
 
 template <typename T>
-typename stack<T>::const_reference stack<T>::top() {}
+typename stack<T>::const_reference stack<T>::top() {
+    return *value_;
+}
 
 template <typename T>
 bool stack<T>::empty() {
-    return true;
+    return *stack_size_ == 0;
 }
 
 template <typename T>
 typename stack<T>::size_type stack<T>::size() {
-    return stack_size;
+    return stack_size_ == nullptr ? 0 : *stack_size_;
 }
 
 template <typename T>
-void stack<T>::push() {
-    
+void stack<T>::push(const_reference value) {
+    stack<T> *new_stack = new stack();
+    if (value_ != nullptr) {
+        new_stack->value_ = new T();
+        *(new_stack->value_) = *value_;
+    } else {
+        new_stack->value_ = nullptr;
+        value_ = new T();
+    }
+    new_stack->prev_ = prev_;
+    new_stack->stack_size_ = stack_size_;
+    stack_size_ = new size_type(0);
+    (*stack_size_)++;
+    prev_ = new_stack;
+    *value_ = value;
 }
 
 template <typename T>
 void stack<T>::pop() {
-    if (value && stack_size > 0) {
-        delete value;
-        value = nullptr;
-        stack<T> *head = this;
-        *this = *prev;
-        delete head;
-        stack_size--;
+    if (value_ && stack_size_ && size() > 0) {
+        delete value_;
+        value_ = nullptr;
+        (*stack_size_)--;
+        stack<T> *prev = prev_;
+        *this = *prev_;
+        delete prev;
     }
 }
 
 template <typename T>
 void stack<T>::swap(stack& other) {
-    
+    std::swap(prev_, other.prev_);
+    std::swap(value_, other.value_);
+    std::swap(stack_size_, other.stack_size_);
 }
 
 template <typename T>
 void stack<T>::delete_stack() {
-    while(value) {
+    while(value_) {
         pop();
+    }
+    if (stack_size_ && size() == 0) {
+        delete stack_size_;
+        stack_size_ == nullptr;
     }
 }
 
 template <class T>
 void stack<T>::copy_stack(const stack& s) {
-    value = s.value ? new T(*s.value) : nullptr;
-    prev = s.prev;
-    stack<T>** phead = &prev;
+    value_ = s.value_ ? new T(*s.value_) : nullptr;
+    stack_size_ = s.stack_size_ ? new size_type(*s.stack_size_) : nullptr;
+    prev_ = s.prev_;
+    stack<T>** phead = &prev_;
 
-    for (const stack<T>* st = s.prev; st; st = st->prev) {
+    for (const stack<T>* st = s.prev_; st; st = st->prev_) {
         stack<T>* temp = new stack();
-        temp->value = new T(*st->value);
-        temp->prev = st->prev;
-        temp->stack_size = st->stack_size;
+        temp->value_ = st->value_ ? new T(*st->value_) : nullptr;
+        temp->stack_size_ = st->stack_size_ ? new size_type(*st->stack_size_) : nullptr;
+        temp->prev_ = st->prev_;
         *phead = temp;
-        phead = &temp->prev;
+        phead = &temp->prev_;
     }
 
     *phead = nullptr;
