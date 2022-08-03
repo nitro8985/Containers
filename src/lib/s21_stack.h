@@ -1,12 +1,12 @@
 #ifndef SRC_LIB_S21_STACK_H_
 #define SRC_LIB_S21_STACK_H_
 
-#include "IConttainer.h"
+#include "s21_base_queue.h"
 
 namespace s21 {
 
-    template <class T>
-    class stack: IConttainer<T> {
+    template <typename T>
+    class stack: public BaseQueue<T> {
      public:
         using value_type = T;
         using reference = T&;
@@ -14,34 +14,14 @@ namespace s21 {
         using size_type = size_t;
 
      public:
-        stack() {
-        }
-        stack(std::initializer_list<value_type> const& items);
-        stack(const stack& s);
-        stack(stack&& s);
-        ~stack() {
-            delete_stack();
-        }
-
-        stack<T> operator=(stack&& s);
-        stack<T> operator=(stack& s);
+        stack(): BaseQueue<T>::BaseQueue() { }
+        stack(std::initializer_list<value_type> const& items): BaseQueue<T>::BaseQueue(items) { }
+        stack(const stack& s): BaseQueue<T>::BaseQueue(s) { }
+        stack(stack&& s): BaseQueue<T>::BaseQueue(std::move(s)) { }
+        ~stack() { }
 
         const_reference top();
-
-        bool empty();
-        size_type size();
-
-        void push(const_reference value);
         void pop();
-        void swap(stack& other);
-     private:
-      T* value_ = nullptr;
-      stack<T>* prev_ = nullptr;
-      size_type* stack_size_ = nullptr;
-
-     private:
-        void delete_stack();
-        void copy_stack(const stack& s);
     };
 } // namespace s21
 
