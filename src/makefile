@@ -21,6 +21,7 @@ gcov_report: clean
 	make run
 	lcov -t "matrix_test" -o test.info -c -d .
 	lcov -q --remove test.info "/usr/include/*" -o test.info
+	lcov -q --remove test.info "/usr/local/*" -o test.info
 	genhtml -o report test.info
 
 clean:
