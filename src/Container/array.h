@@ -4,7 +4,7 @@
 #include "sequcontainer.h"
 
 namespace s21 {
-    template <class T, int n>
+    template <class T,  size_t _Size>
     class Array : public SequContainer<T> {
         using value_type = T;
         using reference = T&;
@@ -14,26 +14,18 @@ namespace s21 {
         using size_type = size_t; 
 
         private:
-        void move_content(Array &a) {
-            T* pointer = v.SequContainer<T>::get_pointer();
-
-            SequContainer<T>::set_new_pointer(&pointer);
-            v.SequContainer<T>::set_new_pointer(nullptr);
-            
-            SequContainer<T>::set_new_size(v.SequContainer<T>::size());
-            v.SequContainer<T>::set_new_size(0);
-        }
 
         public:
-        Array() : SequContainer<T>::SequContainer() {}
-        Array(std::initializer_list<value_type> const& items) : SequContainer<T>::SequContainer(items) {}
+        Array() : SequContainer<T>::SequContainer(_Size) {}
+        Array(std::initializer_list<value_type> const& items) : SequContainer<T>::SequContainer(items, _Size) {}
         Array(const Array &a) : SequContainer<T>::SequContainer(a) {}
         Array(Array &&a) {
             move_content(a);
         }
         ~Array() {}
-        operator=(Array &&a) {
-            move_content(a);
+        Array<T, _Size> operator=(Array &&a) {
+            SequContainer<T>::move_content(a);
+            return this;
         }
 
         void swap(Array &other) {

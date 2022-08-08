@@ -19,6 +19,14 @@ class SequContainer : public Container<T> {
   T *arr;
 
  protected:
+  void move_content(SequContainer &s) {
+    const_iterator pointer = s.get_pointer();
+    assign_array(pointer);
+    s.assign_array(nullptr);
+    set_size(s.size());
+    s.set_size(0);
+  }
+
   void set_size(const size_type &size) { cont_size = size; }
 
   void assign_array(const_iterator newArr) {
@@ -51,28 +59,27 @@ class SequContainer : public Container<T> {
   SequContainer(size_type n) {
     cont_size = n;
     if (n > 0) {
-      arr = new T[n]();
+      arr = new T[n+1]();
     } else {
       arr = nullptr;
     }
   }
 
-  SequContainer(std::initializer_list<value_type> const &items) {
-    cont_size = items.size();
-    arr = new value_type[items.size()];
-    int i = 0;
-    std::copy(items.begin(), items.end(), arr);
+  SequContainer(std::initializer_list<value_type> const &items, size_type _Size) {
+      if (_Size < items.size()) throw std::out_of_range("Pizdets!!!");
+      cont_size = _Size;
+      arr = new T[cont_size+1]();
+      std::copy(items.begin(), items.end(), arr);
   }
 
   SequContainer(const SequContainer &s) {
     cont_size = s.cont_size;
-    arr = new T[cont_size];
+    arr = new T[cont_size+1];
     std::copy(s.arr, s.arr + cont_size, arr);
   }
 
   ~SequContainer() {
     delete[] arr;
-    cont_size = 0;
   }
 
   virtual const_reference front() {  // Element access

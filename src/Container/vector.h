@@ -26,25 +26,13 @@ class Vector : public SequContainer<T> {
     std::copy(vec->begin(), vec->end(), newArr);
   }
 
-  void move_content(Vector &v) {
-    const_iterator pointer = v.SequContainer<T>::get_pointer();
-
-    SequContainer<T>::assign_array(pointer);
-    v.SequContainer<T>::assign_array(nullptr);
-
-    v_capacity = v.v_capacity;
-    v.v_capacity = 0;
-    SequContainer<T>::set_size(v.SequContainer<T>::size());
-    v.SequContainer<T>::set_size(0);
-  }
-
  public:
   Vector() : SequContainer<T>::SequContainer() { v_capacity = 0; }
 
   Vector(size_type n) : SequContainer<T>::SequContainer(n) { v_capacity = n; }
 
   Vector(std::initializer_list<value_type> const &items)
-      : SequContainer<T>::SequContainer(items) {
+      : SequContainer<T>::SequContainer(items, items.size()) {
     v_capacity = items.size();
   }
 
@@ -52,12 +40,18 @@ class Vector : public SequContainer<T> {
     v_capacity = v.v_capacity;
   }
 
-  Vector(Vector &&v) { move_content(v); }
+  Vector(Vector &&v) {
+    SequContainer<T>::move_content(v);
+    v_capacity = v.v_capacity;
+    v.v_capacity = 0;
+  }
 
   ~Vector() { v_capacity = 0; }
 
   Vector<T> operator=(Vector &&v) {
-    move_content(v);
+    SequContainer<T>::move_content(v);
+    v_capacity = v.v_capacity;
+    v.v_capacity = 0;
     return this;
   }
 
