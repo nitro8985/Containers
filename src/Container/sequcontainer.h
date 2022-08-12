@@ -65,9 +65,8 @@ class SequContainer : public Container<T> {
     }
   }
 
-  SequContainer(std::initializer_list<value_type> const &items, size_type _Size) {
-      if (_Size < items.size()) throw std::out_of_range("Pizdets!!!");
-      cont_size = _Size;
+  SequContainer(std::initializer_list<value_type> const &items) {
+      cont_size = items.size();
       arr = new T[cont_size+1]();
       std::copy(items.begin(), items.end(), arr);
   }
@@ -82,11 +81,11 @@ class SequContainer : public Container<T> {
     delete[] arr;
   }
 
-  virtual const_reference front() {  // Element access
+  virtual const_reference front() const {  // Element access
     return arr[0];
   }
 
-  virtual const_reference back() { return arr[cont_size - 1]; }
+  virtual const_reference back() const { return arr[cont_size - 1]; }
 
   virtual iterator begin() {  // Iterators
     return &arr[0];
@@ -94,26 +93,26 @@ class SequContainer : public Container<T> {
 
   virtual iterator end() { return arr + cont_size; }
 
-  reference at(size_type pos) {  // Element access
+  virtual reference at(size_type pos) {
     return get_value(pos);
   }
 
-  reference operator[](size_type pos) { return get_value(pos); }
+  virtual reference operator[](size_type pos) { return get_value(pos); }
 
-  iterator data() { return iterator(get_pointer()); }
+  virtual iterator data() { return iterator(get_pointer()); }
 
   bool empty() {
-    if (cont_size == 0)  // Capacity
+    if (cont_size == 0)
       return true;
     else
       return false;
   }
 
-  size_type size() { return cont_size; }
+  size_type size() const { return cont_size; }
 
-  size_type max_size() { return std::allocator<value_type>().max_size(); }
+  virtual size_type max_size() { return std::allocator<value_type>().max_size(); }
 
-  virtual void clear() {  // Modifiers
+  virtual void clear() {
     if (arr) {
       delete[] arr;
       arr = nullptr;
@@ -136,7 +135,6 @@ class SequContainer : public Container<T> {
     cont_size--;
   }
 
-  virtual void swap() {}
 };
 }  // namespace s21
 

@@ -32,7 +32,7 @@ class Vector : public SequContainer<T> {
   Vector(size_type n) : SequContainer<T>::SequContainer(n) { v_capacity = n; }
 
   Vector(std::initializer_list<value_type> const &items)
-      : SequContainer<T>::SequContainer(items, items.size()) {
+      : SequContainer<T>::SequContainer(items) {
     v_capacity = items.size();
   }
 

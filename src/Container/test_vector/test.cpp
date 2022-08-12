@@ -6,8 +6,8 @@
 #include "gtest/gtest.h"
 
 TEST(insert_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<char> current = {1, 2, 3, 4, 5, 6};
+  s21::Vector<char> custom = {1, 2, 3, 4, 5, 6};
   auto it_1 = current.begin();
   auto it_2 = custom.begin();
 
