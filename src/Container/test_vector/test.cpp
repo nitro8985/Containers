@@ -386,3 +386,194 @@ TEST(operator_iterator_test, case_1) {
     EXPECT_EQ(current[i], custom[i]);
   }
 }
+
+TEST(emplace_back, case_1) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+
+  current.emplace_back();
+  custom.emplace_back();
+
+  auto it1 = current.begin();
+  auto it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+
+  EXPECT_EQ(current.size(), custom.size());
+  EXPECT_EQ(current.capacity(), custom.capacity());
+
+}
+
+TEST(emplace_back, case_2) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+
+  current.emplace_back("four");
+  custom.emplace_back("four");
+
+  auto it1 = current.begin();
+  auto it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+
+  EXPECT_EQ(current.size(), custom.size());
+  EXPECT_EQ(current.capacity(), custom.capacity());
+
+}
+
+TEST(emplace_back, case_3) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+
+  current.push_back("zero");
+  custom.push_back("zero");
+
+  current.emplace_back("four");
+  custom.emplace_back("four");
+
+  auto it1 = current.begin();
+  auto it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+
+  EXPECT_EQ(current.size(), custom.size());
+  EXPECT_EQ(current.capacity(), custom.capacity());
+
+}
+
+TEST(emplace_back, case_4) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+
+  current.emplace_back(5, 'x');
+  custom.emplace_back(5, 'x');
+
+  auto it1 = current.begin();
+  auto it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+
+}
+
+TEST(emplace, case_1) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  EXPECT_EQ(*(current.emplace(it1)), *(custom.emplace(it2)));
+
+}
+
+TEST(emplace, case_2) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1);
+  custom.emplace(it2);
+
+  EXPECT_EQ(current.capacity(), custom.capacity());
+
+}
+
+TEST(emplace, case_2_1) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  current.push_back("zero");
+  custom.push_back("zero");
+
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1);
+  custom.emplace(it2);
+
+  EXPECT_EQ(current.capacity(), custom.capacity());
+
+}
+
+TEST(emplace, case_3) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1);
+  custom.emplace(it2);
+
+  EXPECT_EQ(current.size(), custom.size());
+}
+
+TEST(emplace, case_4) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1);
+  custom.emplace(it2);
+
+  it1 = current.begin();
+  it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+}
+
+TEST(emplace, case_5) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1, 10, 'w');
+  custom.emplace(it2, 10, 'w');
+
+  it1 = current.begin();
+  it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+}
+
+TEST(emplace, case_6) {
+  std::vector<std::string> current = {"one", "two", "three"};
+  s21::Vector<std::string> custom = {"one", "two", "three"};
+
+  current.push_back("zero");
+  custom.push_back("zero");
+  
+  auto it1 = current.begin() + 1;
+  auto it2 = custom.begin() + 1;
+
+  current.emplace(it1, 10, 'q');
+  custom.emplace(it2, 10, 'q');
+
+  it1 = current.begin();
+  it2 = custom.begin();
+
+  for (; it1 != current.end(); it1++, it2++) {
+    EXPECT_EQ(*it1, *it2);
+  }
+
+  EXPECT_EQ(current.capacity(), custom.capacity());
+  EXPECT_EQ(current.size(), custom.size());
+}

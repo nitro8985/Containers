@@ -131,7 +131,7 @@ class SequContainer : public Container<T> {
   virtual void push_back() {}
 
   virtual void pop_back() {
-    arr[cont_size] = 0;
+    arr[cont_size] = value_type(0);
     cont_size--;
   }
 
