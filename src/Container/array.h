@@ -4,100 +4,99 @@
 #include "sequcontainer.h"
 
 namespace s21 {
-    template <class T,  size_t _Size>
-    class Array : public SequContainer<T> {
-        using value_type = T;
-        using reference = T&;
-        using const_reference = const T&;
-        using iterator = T*;
-        using const_iterator = const T*;
-        using size_type = size_t; 
+template <class T,  size_t _Size>
+class Array : public SequContainer<T> {
+    using value_type = T;
+    using reference = T&;
+    using const_reference = const T&;
+    using iterator = T*;
+    using const_iterator = const T*;
+    using size_type = size_t;
 
-        private:
-            value_type _A_elems[_Size+1];
+ private:
+    value_type _A_elems[_Size+1];
 
-            void copy_content(const Array &other) {
-                if (_Size != other.size()) throw std::out_of_range("Out of range!");
-                SequContainer<T>::set_size(other.size());
-                const_iterator _first = &(other.front());
-                const_iterator _last = &(other.back()) + 1;
-                std::copy(_first, _last, begin());
-            }
+    void copy_content(const Array &other) {
+        if (_Size != other.size()) throw std::out_of_range("Out of range!");
+        SequContainer<T>::set_size(other.size());
+        const_iterator _first = &(other.front());
+        const_iterator _last = &(other.back()) + 1;
+        std::copy(_first, _last, begin());
+    }
 
-        public:
-        Array() {
-            SequContainer<T>::set_size(_Size);
+ public:
+    Array() {
+        SequContainer<T>::set_size(_Size);
+    }
+    Array(std::initializer_list<value_type> const& items) {
+        if (items.size() != _Size) throw std::out_of_range("Out of range!");
+        SequContainer<T>::set_size(_Size);
+        auto it = items.begin();
+        for (int i = 0; i < _Size; i++, it++) {
+            _A_elems[i] = *it;
         }
-        Array(std::initializer_list<value_type> const& items) {
-            if (items.size() != _Size) throw std::out_of_range("Out of range!");
-            SequContainer<T>::set_size(_Size);
-            auto it = items.begin();
-            for (int i = 0; i < _Size; i++, it++) {
-                _A_elems[i] = *it;
-            }
-        }
-        Array(const Array &a) {
-            copy_content(a);
-        }
+    }
+    Array(const Array &a) {
+        copy_content(a);
+    }
 
-        Array(Array &&a) {
-            copy_content(a);
-        }
+    Array(Array &&a) {
+        copy_content(a);
+    }
 
-        ~Array() {}
-        
-        Array<T, _Size> operator=(const Array &a) {
-            copy_content(a);
-            return *this;
-        }
+    ~Array() {}
 
-        iterator begin() override {
-            return _A_elems;
-        }
+    Array<T, _Size> operator=(const Array &a) {
+        copy_content(a);
+        return *this;
+    }
 
-        iterator end() override {
-            _A_elems[_Size] = 0;
-            return &_A_elems[_Size];
-        }
+    iterator begin() override {
+        return _A_elems;
+    }
 
-        const_reference front() const override {
-            return _A_elems[0];
-        }
+    iterator end() override {
+        _A_elems[_Size] = 0;
+        return &_A_elems[_Size];
+    }
 
-        const_reference back() const override {
-            return _A_elems[_Size - 1];
-        }
+    const_reference front() const override {
+        return _A_elems[0];
+    }
 
-        reference at(size_type pos) override {
-            if (pos >= _Size) throw std::out_of_range("Out of range!");
-            return _A_elems[pos];
-        }
+    const_reference back() const override {
+        return _A_elems[_Size - 1];
+    }
 
-        reference operator[](size_type pos) override {
-            return _A_elems[pos];
-        }
+    reference at(size_type pos) override {
+        if (pos >= _Size) throw std::out_of_range("Out of range!");
+        return _A_elems[pos];
+    }
 
-        iterator data() override {
-            return _A_elems;
-        }
+    reference operator[](size_type pos) override {
+        return _A_elems[pos];
+    }
 
-        size_type max_size() {
-            return _Size;
-        }
+    iterator data() override {
+        return _A_elems;
+    }
 
-        void swap(Array &other) {
-            value_type* _B_elems = other.data();
-            for (int i = 0; i < _Size; i++) {
-                std::swap(_A_elems[i], _B_elems[i]);
-            }
-        }
-        void fill(const_reference value) {
-            for (int i = 0; i < _Size; i++) {
-                _A_elems[i] = value;
-            }
-        }
+    size_type max_size() {
+        return _Size;
+    }
 
-    };
-}
+    void swap(Array &other) {
+        value_type* _B_elems = other.data();
+        for (int i = 0; i < _Size; i++) {
+            std::swap(_A_elems[i], _B_elems[i]);
+        }
+    }
+    void fill(const_reference value) {
+        for (int i = 0; i < _Size; i++) {
+            _A_elems[i] = value;
+        }
+    }
+};
+}  // namespace s21
 
 #endif  // SRC_CONTAINER_ARRAY_H_

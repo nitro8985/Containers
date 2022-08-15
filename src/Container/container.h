@@ -4,12 +4,12 @@
 #include <initializer_list>
 
 namespace s21 {
-    template <typename T>
-    class Container {
-    public:
-        Container() {}
-        ~Container() {}
-    };
-}
+template <typename T>
+class Container {
+ public:
+    Container() {}
+    ~Container() {}
+};
+}  // namespace s21
 
 #endif  // SRC_CONTAINER_CONTAINER_H_

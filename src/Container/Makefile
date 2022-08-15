@@ -20,5 +20,9 @@ vector_debug_test:
 array_debug_test:
 	g++ ./test_array/test.cpp ./test_array/test_main.cpp -o $(TEST) -lgtest -g
 
+style:
+	cp ../../materials/linters/CPPLINT.cfg ./
+	python3 ../../materials/linters/cpplint.py --extensions=h *.h
+
 clean:
 	rm -rf $(TEST)

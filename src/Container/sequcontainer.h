@@ -19,12 +19,12 @@ class SequContainer : public Container<T> {
   T *arr;
 
  protected:
-  void move_content(SequContainer &s) {
-    const_iterator pointer = s.get_pointer();
+  void move_content(SequContainer *s) {
+    const_iterator pointer = s->get_pointer();
     assign_array(pointer);
-    s.assign_array(nullptr);
-    set_size(s.size());
-    s.set_size(0);
+    s->assign_array(nullptr);
+    set_size(s->size());
+    s->set_size(0);
   }
 
   void set_size(const size_type &size) { cont_size = size; }
@@ -56,7 +56,7 @@ class SequContainer : public Container<T> {
     arr = nullptr;
   }
 
-  SequContainer(size_type n) {
+  explicit SequContainer(size_type n) {
     cont_size = n;
     if (n > 0) {
       arr = new T[n+1]();
@@ -134,7 +134,6 @@ class SequContainer : public Container<T> {
     arr[cont_size] = value_type(0);
     cont_size--;
   }
-
 };
 }  // namespace s21
 
