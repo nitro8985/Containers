@@ -19,6 +19,14 @@ class SequContainer : public Container<T> {
   T *arr;
 
  protected:
+  void move_content(SequContainer *s) {
+    const_iterator pointer = s->get_pointer();
+    assign_array(pointer);
+    s->assign_array(nullptr);
+    set_size(s->size());
+    s->set_size(0);
+  }
+
   void set_size(const size_type &size) { cont_size = size; }
 
   void assign_array(const_iterator newArr) {
@@ -48,38 +56,36 @@ class SequContainer : public Container<T> {
     arr = nullptr;
   }
 
-  SequContainer(size_type n) {
+  explicit SequContainer(size_type n) {
     cont_size = n;
     if (n > 0) {
-      arr = new T[n]();
+      arr = new T[n+1]();
     } else {
       arr = nullptr;
     }
   }
 
   SequContainer(std::initializer_list<value_type> const &items) {
-    cont_size = items.size();
-    arr = new value_type[items.size()];
-    int i = 0;
-    std::copy(items.begin(), items.end(), arr);
+      cont_size = items.size();
+      arr = new T[cont_size+1]();
+      std::copy(items.begin(), items.end(), arr);
   }
 
   SequContainer(const SequContainer &s) {
     cont_size = s.cont_size;
-    arr = new T[cont_size];
+    arr = new T[cont_size+1];
     std::copy(s.arr, s.arr + cont_size, arr);
   }
 
   ~SequContainer() {
     delete[] arr;
-    cont_size = 0;
   }
 
-  virtual const_reference front() {  // Element access
+  virtual const_reference front() const {  // Element access
     return arr[0];
   }
 
-  virtual const_reference back() { return arr[cont_size - 1]; }
+  virtual const_reference back() const { return arr[cont_size - 1]; }
 
   virtual iterator begin() {  // Iterators
     return &arr[0];
@@ -87,26 +93,26 @@ class SequContainer : public Container<T> {
 
   virtual iterator end() { return arr + cont_size; }
 
-  reference at(size_type pos) {  // Element access
+  virtual reference at(size_type pos) {
     return get_value(pos);
   }
 
-  reference operator[](size_type pos) { return get_value(pos); }
+  virtual reference operator[](size_type pos) { return get_value(pos); }
 
-  iterator data() { return iterator(get_pointer()); }
+  virtual iterator data() { return iterator(get_pointer()); }
 
   bool empty() {
-    if (cont_size == 0)  // Capacity
+    if (cont_size == 0)
       return true;
     else
       return false;
   }
 
-  size_type size() { return cont_size; }
+  size_type size() const { return cont_size; }
 
-  size_type max_size() { return std::allocator<value_type>().max_size(); }
+  virtual size_type max_size() { return std::allocator<value_type>().max_size(); }
 
-  virtual void clear() {  // Modifiers
+  virtual void clear() {
     if (arr) {
       delete[] arr;
       arr = nullptr;
@@ -125,11 +131,9 @@ class SequContainer : public Container<T> {
   virtual void push_back() {}
 
   virtual void pop_back() {
-    arr[cont_size] = 0;
+    arr[cont_size] = value_type(0);
     cont_size--;
   }
-
-  virtual void swap() {}
 };
 }  // namespace s21
 

@@ -1,6 +1,7 @@
 #ifndef SRC_CONTAINER_VECTOR_H_
 #define SRC_CONTAINER_VECTOR_H_
 
+#include <memory>
 #include "sequcontainer.h"
 
 namespace s21 {
@@ -18,6 +19,10 @@ class Vector : public SequContainer<T> {
   size_type v_capacity;
 
  private:
+  void set_size(size_type size) {
+    SequContainer<T>::set_size(size);
+  }
+
   void set_value_safe(size_type pos, const_reference value) {
     if (pos < v_capacity) SequContainer<T>::set_value(pos, value);
   }
@@ -26,22 +31,10 @@ class Vector : public SequContainer<T> {
     std::copy(vec->begin(), vec->end(), newArr);
   }
 
-  void move_content(Vector &v) {
-    const_iterator pointer = v.SequContainer<T>::get_pointer();
-
-    SequContainer<T>::assign_array(pointer);
-    v.SequContainer<T>::assign_array(nullptr);
-
-    v_capacity = v.v_capacity;
-    v.v_capacity = 0;
-    SequContainer<T>::set_size(v.SequContainer<T>::size());
-    v.SequContainer<T>::set_size(0);
-  }
-
  public:
   Vector() : SequContainer<T>::SequContainer() { v_capacity = 0; }
 
-  Vector(size_type n) : SequContainer<T>::SequContainer(n) { v_capacity = n; }
+  explicit Vector(size_type n) : SequContainer<T>::SequContainer(n) { v_capacity = n; }
 
   Vector(std::initializer_list<value_type> const &items)
       : SequContainer<T>::SequContainer(items) {
@@ -52,40 +45,47 @@ class Vector : public SequContainer<T> {
     v_capacity = v.v_capacity;
   }
 
-  Vector(Vector &&v) { move_content(v); }
+  Vector(Vector &&v) {
+    SequContainer<T>::move_content(&v);
+    v_capacity = v.v_capacity;
+    v.v_capacity = 0;
+  }
 
   ~Vector() { v_capacity = 0; }
 
   Vector<T> operator=(Vector &&v) {
-    move_content(v);
+    SequContainer<T>::move_content(&v);
+    v_capacity = v.v_capacity;
+    v.v_capacity = 0;
     return this;
   }
 
   iterator insert(iterator pos, const_reference value) {
-    T *newArr;
-    T *newPointer = nullptr;
-    size_type amount = SequContainer<T>::size();
-    size_type newSize;
-    if (amount == v_capacity) {
-      newSize = amount * 2;
-      newArr = new T[newSize];
-      v_capacity = newSize;
-    } else {
-      newSize = amount + 1;
-      newArr = new T[newSize];
-    }
-    SequContainer<T>::set_size(amount + 1);
-    for (size_type i = 0, j = 0; i < SequContainer<T>::size(); i++, j++) {
-      if (&(SequContainer<T>::get_value(i)) != pos) {
-        newArr[i] = SequContainer<T>::get_value(j);
-      } else {
-        newArr[i] = value;
-        newPointer = &newArr[i];
-        j--;
-      }
-    }
-    SequContainer<T>::assign_array(newArr);
-    return newPointer;
+    // T *newArr;
+    // T *newPointer = nullptr;
+    // size_type amount = SequContainer<T>::size();
+    // size_type newSize;
+    // if (amount == v_capacity) {
+    //   newSize = amount * 2;
+    //   newArr = new T[newSize];
+    //   v_capacity = newSize;
+    // } else {
+    //   newSize = amount + 1;
+    //   newArr = new T[newSize];
+    // }
+    // SequContainer<T>::set_size(amount + 1);
+    // for (size_type i = 0, j = 0; i < SequContainer<T>::size(); i++, j++) {
+    //   if (&(SequContainer<T>::get_value(i)) != pos) {
+    //     newArr[i] = SequContainer<T>::get_value(j);
+    //   } else {
+    //     newArr[i] = value;
+    //     newPointer = &newArr[i];
+    //     j--;
+    //   }
+    // }
+    // SequContainer<T>::assign_array(newArr);
+    // return newPointer;
+    return emplace(pos, value);
   }
 
   void reserve(size_type size) {  // Capacity
@@ -108,17 +108,7 @@ class Vector : public SequContainer<T> {
   }
 
   void push_back(const_reference value) {
-    size_type current_size = SequContainer<T>::size();
-    if (current_size == v_capacity) {
-      v_capacity *= 2;
-      T *newArr = new T[v_capacity];
-      copy_content(this, newArr);
-      newArr[current_size] = value;
-      SequContainer<T>::assign_array(newArr);
-    } else {
-      set_value_safe(current_size, value);
-    }
-    SequContainer<T>::set_size(current_size + 1);
+    emplace_back(value);
   }
 
   void swap(Vector &other) {
@@ -131,6 +121,54 @@ class Vector : public SequContainer<T> {
     other.SequContainer<T>::set_size(current_size);
     SequContainer<T>::set_size(other_size);
     std::swap(v_capacity, other.v_capacity);
+  }
+
+  template <class... Args>
+  iterator emplace(const_iterator position, Args&&... args) {
+    size_type amount = SequContainer<T>::size();
+    T* pointer = nullptr;
+    set_size(amount + 1);
+    size_type newSize = SequContainer<T>::size();
+    T* temp = SequContainer<T>::data();
+    if (v_capacity == amount) {
+      v_capacity *= 2;
+      T* newArr = new T[v_capacity];
+      for (size_type i = 0, j = 0; i < newSize; i++, j++) {
+        if (&temp[i] != position) {
+          newArr[i] = temp[j];
+        } else {
+          newArr[i] = T(args...);
+          pointer = &newArr[i];
+          j--;
+        }
+      }
+      SequContainer<T>::assign_array(newArr);
+    } else {
+      for (size_type i = newSize - 1; ; i--) {
+        if (&temp[i] == position) {
+          temp[i] = T(args...);
+          break;
+        }
+        temp[i] = temp[i-1];
+      }
+    }
+    return pointer;
+  }
+
+  template <class... Args>
+  void emplace_back(Args&&... args) {
+    size_type amount = SequContainer<T>::size();
+    if (amount == v_capacity) {
+      v_capacity *= 2;
+      T* newArr = new T[v_capacity]();
+      copy_content(this, newArr);
+      newArr[amount] = T(args...);
+      SequContainer<T>::assign_array(newArr);
+    } else {
+      auto *temp = SequContainer<T>::data();
+      temp[amount] = T(args...);
+    }
+    set_size(amount + 1);
   }
 };
 }  // namespace s21
