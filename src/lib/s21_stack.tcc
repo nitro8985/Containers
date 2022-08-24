@@ -1,6 +1,6 @@
 #include "s21_stack.h"
 
-using namespace s21;
+namespace s21 {
 
 template <typename T>
 typename stack<T>::const_reference stack<T>::top() {
@@ -11,3 +11,4 @@ template <typename T>
 void stack<T>::pop() {
     BaseQueue<T>::pop_back();
 }
+}  // namespace s21

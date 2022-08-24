@@ -3,7 +3,7 @@
 TEST_F(stack_test, push) {
     s21::stack<double> s21_stack;
     std::stack<double> std_stack;
-    
+
     s21_stack.push(*d.begin());
     std_stack.push(*d.begin());
 

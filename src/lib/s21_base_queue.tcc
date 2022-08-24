@@ -1,6 +1,6 @@
 #include "s21_base_queue.h"
 
-using namespace s21;
+namespace s21 {
 
 template <typename T>
 BaseQueue<T>::BaseQueue(std::initializer_list<value_type> const& items) {
@@ -67,7 +67,6 @@ void BaseQueue<T>::push(const_reference value) {
     if (!size_) {
         size_ = new size_type(1);
         front_ = new_node;
-        back_ = new_node;
     } else {
         (*size_)++;
         node_->next_ = new_node;
@@ -119,7 +118,7 @@ void BaseQueue<T>::swap(BaseQueue& other) {
 
 template <typename T>
 void BaseQueue<T>::delete_queue() {
-    while(node_) {
+    while (node_) {
         pop_back();
     }
     node_ = nullptr;
@@ -131,7 +130,7 @@ void BaseQueue<T>::delete_queue() {
 
 template <class T>
 void BaseQueue<T>::copy(const BaseQueue& s) {
-    if(node_ == nullptr) {
+    if (node_ == nullptr) {
         node_ = new BaseQueueNode();
     }
     node_->value_ = s.node_->value_ ? new T(*s.node_->value_) : nullptr;
@@ -140,7 +139,7 @@ void BaseQueue<T>::copy(const BaseQueue& s) {
 
     BaseQueueNode* previous_node = s.node_->prev_;
     BaseQueueNode* current_node = node_;
-    while(previous_node) {
+    while (previous_node) {
         BaseQueueNode* temp = new BaseQueueNode();
         temp->value_ = new T(*previous_node->value_);
         temp->next_ = current_node;
@@ -151,3 +150,4 @@ void BaseQueue<T>::copy(const BaseQueue& s) {
     }
     front_ = current_node;
 }
+}  // namespace s21

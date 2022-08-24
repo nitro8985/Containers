@@ -3,7 +3,7 @@
 TEST_F(queue_test, push) {
     s21::queue<double> s21_queue;
     std::queue<double> std_queue;
-    
+
     s21_queue.push(*d.begin());
     std_queue.push(*d.begin());
 

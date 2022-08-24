@@ -32,8 +32,8 @@ run:
 
 check: 
 	cp ../materials/linters/CPPLINT.cfg ./CPPLINT.cfg
-	python3 ../materials/linters/cpplint.py --extension=cpp test/*.cpp test/*.h lib/*.inl lib/*.h
-	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem --suppress=unusedFunction test/*.cpp test/*.h lib/*.cpp lib/*.h
+	python3 ../materials/linters/cpplint.py --extension=cpp,tcc test/*.cpp test/*.h lib/*
+	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem test/*.cpp test/*.h lib/*.tcc lib/*.h
 
 leaks: test
 	$(LEAKS)  ./$(OUT)
