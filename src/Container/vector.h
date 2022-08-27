@@ -61,30 +61,6 @@ class Vector : public SequContainer<T> {
   }
 
   iterator insert(iterator pos, const_reference value) {
-    // T *newArr;
-    // T *newPointer = nullptr;
-    // size_type amount = SequContainer<T>::size();
-    // size_type newSize;
-    // if (amount == v_capacity) {
-    //   newSize = amount * 2;
-    //   newArr = new T[newSize];
-    //   v_capacity = newSize;
-    // } else {
-    //   newSize = amount + 1;
-    //   newArr = new T[newSize];
-    // }
-    // SequContainer<T>::set_size(amount + 1);
-    // for (size_type i = 0, j = 0; i < SequContainer<T>::size(); i++, j++) {
-    //   if (&(SequContainer<T>::get_value(i)) != pos) {
-    //     newArr[i] = SequContainer<T>::get_value(j);
-    //   } else {
-    //     newArr[i] = value;
-    //     newPointer = &newArr[i];
-    //     j--;
-    //   }
-    // }
-    // SequContainer<T>::assign_array(newArr);
-    // return newPointer;
     return emplace(pos, value);
   }
 
