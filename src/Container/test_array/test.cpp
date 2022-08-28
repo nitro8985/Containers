@@ -10,7 +10,6 @@ TEST(construct, case_1) {
   std::array<int, 5> current;
 
   EXPECT_EQ(custom.size(), current.size());
-
 }
 
 TEST(construct_list, case_1) {
@@ -24,7 +23,7 @@ TEST(construct_list, case_1) {
 
   for (; it != custom.end(); it++, it2++) {
     EXPECT_EQ(*it, *it2);
-  } 
+  }
 }
 
 TEST(construct_copy, case_1) {
@@ -97,7 +96,6 @@ TEST(begin, case_1) {
   auto itCurrent = current.begin();
 
   EXPECT_EQ(*itCustom, *itCurrent);
-
 }
 
 TEST(begin, case_2) {
@@ -109,19 +107,16 @@ TEST(begin, case_2) {
   auto itCurrent = current.begin();
   auto endCurrent = current.end();
 
-  std::cout<<*itCustom<<std::endl;
+  std::cout << *itCustom << std::endl;
 
   EXPECT_EQ(itCurrent, endCurrent);
   EXPECT_EQ(itCustom, endCustom);
-
 }
 
 TEST(end, case_1) {
-  std::array<int, 5> current {9, 8, 7, 6, 5};
   s21::Array<int, 5> custom {9, 8, 7, 6, 5};
 
   auto itCustom = custom.end();
-  auto itCurrent = current.end();
 
   EXPECT_EQ(*itCustom, 0);
 }
@@ -130,13 +125,13 @@ TEST(at, case_1) {
   std::array<int, 5> current {9, 8, 7, 6, 5};
   s21::Array<int, 5> custom {9, 8, 7, 6, 5};
 
-  EXPECT_EQ(current.at(4), custom.at(4)); 
+  EXPECT_EQ(current.at(4), custom.at(4));
 }
 
 TEST(at, case_2) {
   s21::Array<int, 5> custom {9, 8, 7, 6, 5};
 
-  EXPECT_ANY_THROW(custom.at(6)); 
+  EXPECT_ANY_THROW(custom.at(6));
 }
 
 TEST(operator_access, case_1) {
@@ -172,7 +167,6 @@ TEST(data, case_1) {
   for (int i = 0; i < current.size(); i++) {
     EXPECT_EQ(_pCurr[i], _pCust[i]);
   }
-
 }
 
 TEST(empty, case_1) {

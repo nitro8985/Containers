@@ -23,10 +23,6 @@ class Vector : public SequContainer<T> {
     SequContainer<T>::set_size(size);
   }
 
-  void set_value_safe(size_type pos, const_reference value) {
-    if (pos < v_capacity) SequContainer<T>::set_value(pos, value);
-  }
-
   void copy_content(Vector<T> *vec, T *newArr) {
     std::copy(vec->begin(), vec->end(), newArr);
   }

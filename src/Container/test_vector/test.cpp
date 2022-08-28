@@ -133,14 +133,12 @@ TEST(shrink_to_fit_test, case_1) {
 TEST(push_back_test, case_1) {
   std::vector<int> current {1, 2, 3, 4, 5};
   s21::Vector<int> custom {1, 2, 3, 4, 5};
-  auto it_1 = current.begin();
-  auto it_2 = custom.begin();
 
   current.push_back(9);
   custom.push_back(9);
 
-  it_1 = current.begin();
-  it_2 = custom.begin();
+  auto it_1 = current.begin();
+  auto it_2 = custom.begin();
 
   for (; it_1 != current.end(); it_1++, it_2++) {
     EXPECT_EQ(*it_1, *it_2);
@@ -403,7 +401,6 @@ TEST(emplace_back, case_1) {
 
   EXPECT_EQ(current.size(), custom.size());
   EXPECT_EQ(current.capacity(), custom.capacity());
-
 }
 
 TEST(emplace_back, case_2) {
@@ -422,7 +419,6 @@ TEST(emplace_back, case_2) {
 
   EXPECT_EQ(current.size(), custom.size());
   EXPECT_EQ(current.capacity(), custom.capacity());
-
 }
 
 TEST(emplace_back, case_3) {
@@ -444,7 +440,6 @@ TEST(emplace_back, case_3) {
 
   EXPECT_EQ(current.size(), custom.size());
   EXPECT_EQ(current.capacity(), custom.capacity());
-
 }
 
 TEST(emplace_back, case_4) {
@@ -460,24 +455,22 @@ TEST(emplace_back, case_4) {
   for (; it1 != current.end(); it1++, it2++) {
     EXPECT_EQ(*it1, *it2);
   }
-
 }
 
 TEST(emplace, case_1) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 
   EXPECT_EQ(*(current.emplace(it1)), *(custom.emplace(it2)));
-
 }
 
 TEST(emplace, case_2) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 
@@ -485,13 +478,12 @@ TEST(emplace, case_2) {
   custom.emplace(it2);
 
   EXPECT_EQ(current.capacity(), custom.capacity());
-
 }
 
 TEST(emplace, case_2_1) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   current.push_back("zero");
   custom.push_back("zero");
 
@@ -502,13 +494,12 @@ TEST(emplace, case_2_1) {
   custom.emplace(it2);
 
   EXPECT_EQ(current.capacity(), custom.capacity());
-
 }
 
 TEST(emplace, case_3) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 
@@ -521,7 +512,7 @@ TEST(emplace, case_3) {
 TEST(emplace, case_4) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 
@@ -539,7 +530,7 @@ TEST(emplace, case_4) {
 TEST(emplace, case_5) {
   std::vector<std::string> current {"one", "two", "three"};
   s21::Vector<std::string> custom {"one", "two", "three"};
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 
@@ -560,7 +551,7 @@ TEST(emplace, case_6) {
 
   current.push_back("zero");
   custom.push_back("zero");
-  
+
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
 

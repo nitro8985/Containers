@@ -25,10 +25,10 @@ array_debug_test:
 
 style:
 	cp ../../materials/linters/CPPLINT.cfg ./
-	python3 ../../materials/linters/cpplint.py --extensions=h *.h
+	python3 ../../materials/linters/cpplint.py --extensions=h --extensions=cpp *.h test_array/*.cpp test_vector/*.cpp 
 
 check:
-		cppcheck --quiet --enable=all --language=c++ --suppress=missingIncludeSystem --suppress=unusedFunction sequcontainer.h vector.h array.h
+		cppcheck --quiet --enable=all --language=c++ --suppress=missingInclude --suppress=unusedFunction sequcontainer.h vector.h array.h test_array/*.cpp test_vector/*.cpp
 
 clean:
 	rm -rf $(TEST)
