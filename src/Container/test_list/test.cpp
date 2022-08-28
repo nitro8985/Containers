@@ -116,6 +116,13 @@ TEST(init_list, case_1) {
   EXPECT_EQ(std_list.size(), s21_list.size());
 }
 
+TEST(empty, case_1) {
+  s21::List<int> s21_list;
+  EXPECT_TRUE(s21_list.empty());
+  s21_list.push_front(21);
+  EXPECT_FALSE(s21_list.empty());
+}
+
 TEST(copy_list, case_1) {
   s21::List<int> s21_list{2, 4, 6, 8};
   s21::List<int> s21_list_copy = s21_list;

@@ -118,7 +118,7 @@ class List {
 
   void destroy_list() {
     while (head_ != tail_) {
-        pop_front();
+      pop_front();
     }
     if (l_size_ == 0) {
       delete tail_;
@@ -134,7 +134,7 @@ class List {
 
  public:
   size_t size() { return l_size_; }
-
+  bool empty() { return size() == 0; }
   // Default constructor, creates empty list
   List() { init(); }
 
@@ -310,14 +310,14 @@ class List {
   }
 
   void unique() {
-      for (iterator it = begin(); it != --end(); it++) {
-        Node* cur = it.get_current();
-        if (cur->value == cur->next->value) {
-          iterator del;
-          del.set_pos(cur->next);
-          erase(del);
-        }
+    for (iterator it = begin(); it != --end(); it++) {
+      Node* cur = it.get_current();
+      if (cur->value == cur->next->value) {
+        iterator del;
+        del.set_pos(cur->next);
+        erase(del);
       }
+    }
   }
 
   void sort() {
