@@ -16,6 +16,7 @@ class List {
     Node* current_;
 
    public:
+    ListIterator() {current_ = nullptr;}
     Node* const get_current() { return current_; }
     void set_pos(Node* set_pos) { current_ = set_pos; }
 
@@ -92,7 +93,7 @@ class List {
     set_size(0);
   }
 
-  void set_head_value(T value) {
+  void set_head_value(const T &value) {
     head_->value = value;
     Node* endStub = new Node;
     endStub->next = head_;
@@ -101,7 +102,7 @@ class List {
     head_->prev = endStub;
   }
 
-  void add_element(T value) {
+  void add_element(const T &value) {
     if (0 == size()) {
       set_head_value(value);
     } else {
@@ -146,14 +147,14 @@ class List {
   explicit List(size_type n) {
     init();
     while (n--) {
-      add_element(0);
+      add_element();
     }
     set_size(n);
   }
 
   // Initializer list constructor, creates list initizialized using
   // std::initializer_list
-  List(std::initializer_list<value_type> const& items) {
+  explicit List(std::initializer_list<value_type> const& items) {
     init();
     for (auto elem : items) push_back(elem);
   }
@@ -188,13 +189,13 @@ class List {
   }
 
   virtual iterator begin() {
-    iterator obj;
+    s21::List<T>::ListIterator obj;
     obj.set_pos(head_);
     return obj;
   }
 
   virtual iterator end() {
-    iterator obj;
+    s21::List<T>::ListIterator obj;
     obj.set_pos(tail_->next);
     return obj;
   }
@@ -219,7 +220,7 @@ class List {
       newElement->next = cur;
       plus_size();
       tail_->next->value = size();
-      pos--;
+      --pos;
     }
     return pos;
   }
@@ -282,7 +283,7 @@ class List {
         set_size(0);
       } else {
         iterator it = end();
-        it--;
+        --it;
         tail_->prev->next = tail_->next;
         tail_->next->prev = tail_->prev;
         tail_ = tail_->prev;
@@ -323,17 +324,17 @@ class List {
       iterator it_end = --end();
       for (size_t i = 0; i < list_size / 2; i++) {
         std::swap(*it_begin, *it_end);
-        it_begin++;
-        it_end--;
+        ++it_begin;
+        --it_end;
       }
     }
   }
 
   void unique() {
-    for (iterator it = begin(); it != --end(); it++) {
+    for (iterator it = begin(); it != --end(); ++it) {
       Node* cur = it.get_current();
       if (cur->value == cur->next->value) {
-        iterator del;
+        s21::List<T>::ListIterator del;
         del.set_pos(cur->next);
         erase(del);
       }
@@ -347,10 +348,10 @@ class List {
       for (size_t j = 0; j < l_size; j++) {
         Node* cur = it.get_current();
         if (cur->value > cur->next->value) {
-          Node* cur = it.get_current();
+          cur = it.get_current();
           std::swap(cur->value, cur->next->value);
         }
-        it++;
+        ++it;
       }
       it = begin();
     }

@@ -3,7 +3,6 @@
 #include <string>
 
 #include "../list.h"
-#include "../sequcontainer.h"
 #include "gtest/gtest.h"
 
 TEST(str, case_1) {
@@ -34,10 +33,6 @@ TEST(push_back, case_1) {
   auto it_s21 = s21_list.begin();
   EXPECT_EQ(*it_std, *it_s21);
   EXPECT_EQ(std_list.size(), s21_list.size());
-  it_std = std_list.end();
-  it_s21 = s21_list.end();
-  EXPECT_EQ(*it_std, *it_s21);
-  EXPECT_EQ(std_list.size(), s21_list.size());
 }
 
 TEST(push_back, case_2) {
@@ -52,7 +47,7 @@ TEST(push_back, case_2) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(std_list.size(), s21_list.size());
@@ -110,7 +105,7 @@ TEST(init_list, case_1) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(std_list.size(), s21_list.size());
@@ -132,7 +127,7 @@ TEST(copy_list, case_1) {
   auto it_cpy = s21_list_copy.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_cpy != s21_list_copy.end();
-       it_s21++, it_cpy++) {
+       ++it_s21, ++it_cpy) {
     EXPECT_EQ(*it_cpy, *it_s21);
   }
   EXPECT_EQ(s21_list_copy.size(), s21_list.size());
@@ -148,7 +143,7 @@ TEST(move_list, case_1) {
   auto it_s21 = s21_list_move.begin();
   auto it_std = std_list_move.begin();
   for (; it_s21 != s21_list_move.end() || it_std != std_list_move.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_move.size(), std_list_move.size());
@@ -169,15 +164,15 @@ TEST(insert, case_1_middle) {
   s21::List<int> s21_list{2, 4, 6, 8};
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
-  it_s21++;
-  it_std++;
+  ++it_s21;
+  ++it_std;
   auto it_ret_std = std_list.insert(it_std, 300);
   auto it_ret_s21 = s21_list.insert(it_s21, 300);
 
   it_s21 = s21_list.begin();
   it_std = std_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -195,7 +190,7 @@ TEST(insert, case_2_begin) {
   it_s21 = s21_list.begin();
   it_std = std_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -212,7 +207,7 @@ TEST(insert, case_3_end) {
   it_s21 = s21_list.begin();
   it_std = std_list.begin();
   for (; it_s21 != s21_list.end() && it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -227,7 +222,7 @@ TEST(pop_front, case_1) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -242,7 +237,7 @@ TEST(pop_back, case_1) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() && it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -253,15 +248,15 @@ TEST(erase, case_1_middle) {
   s21::List<int> s21_list{2, 4, 6, 8};
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
-  it_s21++;
-  it_std++;
+  ++it_s21;
+  ++it_std;
   std_list.erase(it_std);
   s21_list.erase(it_s21);
 
   it_s21 = s21_list.begin();
   it_std = std_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -278,7 +273,7 @@ TEST(erase, case_2_begin) {
   it_s21 = s21_list.begin();
   it_std = std_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -292,7 +287,7 @@ TEST(sort, case_1) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -306,7 +301,7 @@ TEST(sort, case_2) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
 
@@ -321,7 +316,7 @@ TEST(sort, case_3) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -335,7 +330,7 @@ TEST(sort, case_4) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -349,7 +344,7 @@ TEST(sort, case_5) {
   auto it_std = std_list.begin();
   auto it_s21 = s21_list.begin();
   for (; it_s21 != s21_list.end() || it_std != std_list.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list.size(), std_list.size());
@@ -366,10 +361,8 @@ TEST(merge, case_1) {
   auto it_std = std_list_a.begin();
   auto it_s21 = s21_list_a.begin();
 
-  it_s21 = s21_list_a.begin();
-  it_std = std_list_a.begin();
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -385,10 +378,8 @@ TEST(merge, case_2_same) {
   auto it_std = std_list_a.begin();
   auto it_s21 = s21_list_a.begin();
 
-  it_s21 = s21_list_a.begin();
-  it_std = std_list_a.begin();
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -404,7 +395,7 @@ TEST(reverse, case_2_same) {
   auto it_s21 = s21_list_a.begin();
 
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -420,7 +411,7 @@ TEST(uniq, case_1) {
   auto it_s21 = s21_list_a.begin();
 
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -430,20 +421,20 @@ TEST(splice, case_1) {
   std::list<int> std_list_a{2, 4, 6, 8};
   std::list<int> std_list_b{3, 5, 7, 9};
   auto it_std = std_list_a.begin();
-  it_std++;
+  ++it_std;
   std_list_a.splice(it_std, std_list_b);
 
   s21::List<int> s21_list_a{2, 4, 6, 8};
   s21::List<int> s21_list_b{3, 5, 7, 9};
   auto it_s21 = s21_list_a.begin();
-  it_s21++;
+  ++it_s21;
   s21_list_a.splice(it_s21, s21_list_b);
 
   it_s21 = s21_list_a.begin();
   it_std = std_list_a.begin();
 
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -465,7 +456,7 @@ TEST(splice, case_2) {
   it_std = std_list_a.begin();
 
   for (; it_s21 != s21_list_a.end() || it_std != std_list_a.end();
-       it_s21++, it_std++) {
+       ++it_s21, ++it_std) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -475,19 +466,19 @@ TEST(splice, case_2) {
 TEST(emplace, case_1) {
   std::list<int> std_list_a{2, 4, 6, 8};
   auto it_std = std_list_a.begin();
-  it_std++;
+  ++it_std;
   auto new_pos_std = std_list_a.emplace(it_std, 10);
 
   s21::List<int> s21_list_a{2, 4, 6, 8};
   auto it_s21 = s21_list_a.begin();
-  it_s21++;
+  ++it_s21;
   auto new_pos_s21 = s21_list_a.emplace(it_s21, 10);
 
   it_s21 = s21_list_a.begin();
   it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -502,14 +493,14 @@ TEST(emplace, case_2) {
 
   s21::List<std::string> s21_list_a{"one", "two", "three"};
   auto it_s21 = s21_list_a.end();
-  it_s21--;
+  --it_s21;
   auto new_pos_s21 = s21_list_a.emplace(it_s21, 10, 'x');
 
   it_s21 = s21_list_a.begin();
   it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -529,7 +520,7 @@ TEST(emplace, case_3) {
 
   s21::List<std::string> s21_list_a{"one", "two", "three"};
   auto it_s21 = s21_list_a.end();
-  it_s21--;
+  --it_s21;
   s21_list_a.emplace(it_s21, four);
   s21_list_a.emplace(it_s21, std::move(five21));
 
@@ -537,7 +528,7 @@ TEST(emplace, case_3) {
   it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -545,7 +536,7 @@ TEST(emplace, case_3) {
 
 TEST(emplace_back, case_1) {
   std::list<std::string> std_list_a{"one", "two", "three"};
-  auto new_pos_std = std_list_a.emplace_back(10, 'x');
+  std_list_a.emplace_back(10, 'x');
 
   s21::List<std::string> s21_list_a{"one", "two", "three"};
   s21_list_a.emplace_back(10, 'x');
@@ -554,7 +545,7 @@ TEST(emplace_back, case_1) {
   auto it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -562,7 +553,7 @@ TEST(emplace_back, case_1) {
 
 TEST(emplace_back, case_2) {
   std::list<std::string> std_list_a;
-  auto new_pos_std = std_list_a.emplace_back(10, 'x');
+  std_list_a.emplace_back(10, 'x');
 
   s21::List<std::string> s21_list_a;
   s21_list_a.emplace_back(10, 'x');
@@ -571,7 +562,7 @@ TEST(emplace_back, case_2) {
   auto it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -579,7 +570,7 @@ TEST(emplace_back, case_2) {
 
 TEST(emplace_front, case_1) {
   std::list<std::string> std_list_a;
-  auto new_pos_std = std_list_a.emplace_front(10, 'x');
+  std_list_a.emplace_front(10, 'x');
 
   s21::List<std::string> s21_list_a;
   s21_list_a.emplace_front(10, 'x');
@@ -588,7 +579,7 @@ TEST(emplace_front, case_1) {
   auto it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
@@ -596,7 +587,7 @@ TEST(emplace_front, case_1) {
 
 TEST(emplace_front, case_2) {
   std::list<std::string> std_list_a{"one", "two", "three"};
-  auto new_pos_std = std_list_a.emplace_front(10, 'x');
+  std_list_a.emplace_front(10, 'x');
 
   s21::List<std::string> s21_list_a{"one", "two", "three"};
   s21_list_a.emplace_front(10, 'x');
@@ -605,7 +596,7 @@ TEST(emplace_front, case_2) {
   auto it_std = std_list_a.begin();
 
   for (; it_std != std_list_a.end() || it_s21 != s21_list_a.end();
-       it_std++, it_s21++) {
+       ++it_std, ++it_s21) {
     EXPECT_EQ(*it_std, *it_s21);
   }
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
