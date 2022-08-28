@@ -6,8 +6,8 @@
 #include "gtest/gtest.h"
 
 TEST(insert_test, case_1) {
-  std::vector<char> current = {1, 2, 3, 4, 5, 6};
-  s21::Vector<char> custom = {1, 2, 3, 4, 5, 6};
+  std::vector<char> current {1, 2, 3, 4, 5, 6};
+  s21::Vector<char> custom {1, 2, 3, 4, 5, 6};
   auto it_1 = current.begin();
   auto it_2 = custom.begin();
 
@@ -26,8 +26,8 @@ TEST(insert_test, case_1) {
 }
 
 TEST(insert_test, case_2) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
   auto it_1 = current.end();
   auto it_2 = custom.end();
 
@@ -46,8 +46,8 @@ TEST(insert_test, case_2) {
 }
 
 TEST(at_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   for (size_t i = 0; i < current.size(); i++) {
     EXPECT_EQ(current.at(i), custom.at(i));
@@ -55,8 +55,8 @@ TEST(at_test, case_1) {
 }
 
 TEST(reserve_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(current.capacity(), custom.capacity());
 
@@ -69,8 +69,8 @@ TEST(reserve_test, case_1) {
 }
 
 TEST(reserve_test, case_2) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(current.capacity(), custom.capacity());
 
@@ -83,8 +83,8 @@ TEST(reserve_test, case_2) {
 }
 
 TEST(reserve_test, case_3) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(current.capacity(), custom.capacity());
 
@@ -97,8 +97,8 @@ TEST(reserve_test, case_3) {
 }
 
 TEST(reserve_test, case_4) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(current.capacity(), custom.capacity());
 
@@ -111,8 +111,8 @@ TEST(reserve_test, case_4) {
 }
 
 TEST(shrink_to_fit_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(current.capacity(), custom.capacity());
 
@@ -131,8 +131,8 @@ TEST(shrink_to_fit_test, case_1) {
 }
 
 TEST(push_back_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
   auto it_1 = current.begin();
   auto it_2 = custom.begin();
 
@@ -151,8 +151,8 @@ TEST(push_back_test, case_1) {
 }
 
 TEST(pop_back_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   current.pop_back();
   custom.pop_back();
@@ -169,20 +169,20 @@ TEST(pop_back_test, case_1) {
 }
 
 TEST(front_test, case_1) {
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(1, custom.front());
 }
 
 TEST(back_test, case_1) {
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   EXPECT_EQ(5, custom.back());
 }
 
 TEST(iterators_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
 
   auto it_1 = current.begin();
   auto it_2 = custom.begin();
@@ -202,16 +202,16 @@ TEST(is_empty_test, case_1) {
 }
 
 TEST(is_empty_test, case_2) {
-  std::vector<int> current = {1, 2, 3, 4};
-  s21::Vector<int> custom = {1, 2, 3};
+  std::vector<int> current {1, 2, 3, 4};
+  s21::Vector<int> custom {1, 2, 3};
 
   EXPECT_FALSE(current.empty());
   EXPECT_FALSE(custom.empty());
 }
 
 TEST(clear_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4};
-  s21::Vector<int> custom = {1, 2, 3};
+  std::vector<int> current {1, 2, 3, 4};
+  s21::Vector<int> custom {1, 2, 3};
 
   EXPECT_FALSE(current.empty());
   EXPECT_FALSE(custom.empty());
@@ -224,8 +224,8 @@ TEST(clear_test, case_1) {
 }
 
 TEST(erase_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5};
+  std::vector<int> current {1, 2, 3, 4, 5};
+  s21::Vector<int> custom {1, 2, 3, 4, 5};
   auto it_1 = current.begin();
   auto it_2 = custom.begin();
 
@@ -251,8 +251,8 @@ TEST(max_size_test, case_1) {
 }
 
 TEST(swap_test, case_1) {
-  s21::Vector<int> currentFirst = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> currentSecond = {9, 8, 7, 6, 5, 4};
+  s21::Vector<int> currentFirst {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> currentSecond {9, 8, 7, 6, 5, 4};
 
   s21::Vector<int> swappedFirst = currentSecond;
   s21::Vector<int> swappedSecond = currentFirst;
@@ -267,8 +267,8 @@ TEST(swap_test, case_1) {
 }
 
 TEST(swap_test, case_2) {
-  s21::Vector<int> currentFirst = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> currentSecond = {9, 8, 7, 6, 5, 4, 9, 76, 43};
+  s21::Vector<int> currentFirst {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> currentSecond {9, 8, 7, 6, 5, 4, 9, 76, 43};
 
   s21::Vector<int> swappedFirst = currentSecond;
   s21::Vector<int> swappedSecond = currentFirst;
@@ -307,8 +307,8 @@ TEST(construct_test, case_2) {
 }
 
 TEST(construct_test, case_3) {
-  std::vector<int> current = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5, 6};
+  std::vector<int> current {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> custom {1, 2, 3, 4, 5, 6};
 
   EXPECT_EQ(current.size(), custom.size());
   EXPECT_EQ(current.capacity(), custom.capacity());
@@ -322,8 +322,8 @@ TEST(construct_test, case_3) {
 }
 
 TEST(construct_test, case_4) {
-  std::vector<int> first = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> second = {1, 2, 3, 4, 5, 6};
+  std::vector<int> first {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> second {1, 2, 3, 4, 5, 6};
 
   std::vector<int> current(first);
   s21::Vector<int> custom(second);
@@ -340,8 +340,8 @@ TEST(construct_test, case_4) {
 }
 
 TEST(construct_test, case_5) {
-  std::vector<int> first = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> second = {1, 2, 3, 4, 5, 6};
+  std::vector<int> first {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> second {1, 2, 3, 4, 5, 6};
 
   std::vector<int> current = std::move(first);
   s21::Vector<int> custom = std::move(second);
@@ -361,8 +361,8 @@ TEST(construct_test, case_5) {
 }
 
 TEST(operator_assign_test, case_1) {
-  std::vector<int> first = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> second = {1, 2, 3, 4, 5, 6};
+  std::vector<int> first {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> second {1, 2, 3, 4, 5, 6};
 
   std::vector<int> current = first;
   s21::Vector<int> custom = second;
@@ -379,8 +379,8 @@ TEST(operator_assign_test, case_1) {
 }
 
 TEST(operator_iterator_test, case_1) {
-  std::vector<int> current = {1, 2, 3, 4, 5, 6};
-  s21::Vector<int> custom = {1, 2, 3, 4, 5, 6};
+  std::vector<int> current {1, 2, 3, 4, 5, 6};
+  s21::Vector<int> custom {1, 2, 3, 4, 5, 6};
 
   for (auto i = 0; i < current.size(); i++) {
     EXPECT_EQ(current[i], custom[i]);
@@ -388,8 +388,8 @@ TEST(operator_iterator_test, case_1) {
 }
 
 TEST(emplace_back, case_1) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
 
   current.emplace_back();
   custom.emplace_back();
@@ -407,8 +407,8 @@ TEST(emplace_back, case_1) {
 }
 
 TEST(emplace_back, case_2) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
 
   current.emplace_back("four");
   custom.emplace_back("four");
@@ -426,8 +426,8 @@ TEST(emplace_back, case_2) {
 }
 
 TEST(emplace_back, case_3) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
 
   current.push_back("zero");
   custom.push_back("zero");
@@ -448,8 +448,8 @@ TEST(emplace_back, case_3) {
 }
 
 TEST(emplace_back, case_4) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
 
   current.emplace_back(5, 'x');
   custom.emplace_back(5, 'x');
@@ -464,8 +464,8 @@ TEST(emplace_back, case_4) {
 }
 
 TEST(emplace, case_1) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
@@ -475,8 +475,8 @@ TEST(emplace, case_1) {
 }
 
 TEST(emplace, case_2) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
@@ -489,8 +489,8 @@ TEST(emplace, case_2) {
 }
 
 TEST(emplace, case_2_1) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   current.push_back("zero");
   custom.push_back("zero");
@@ -506,8 +506,8 @@ TEST(emplace, case_2_1) {
 }
 
 TEST(emplace, case_3) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
@@ -519,8 +519,8 @@ TEST(emplace, case_3) {
 }
 
 TEST(emplace, case_4) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
@@ -537,8 +537,8 @@ TEST(emplace, case_4) {
 }
 
 TEST(emplace, case_5) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
   
   auto it1 = current.begin() + 1;
   auto it2 = custom.begin() + 1;
@@ -555,8 +555,8 @@ TEST(emplace, case_5) {
 }
 
 TEST(emplace, case_6) {
-  std::vector<std::string> current = {"one", "two", "three"};
-  s21::Vector<std::string> custom = {"one", "two", "three"};
+  std::vector<std::string> current {"one", "two", "three"};
+  s21::Vector<std::string> custom {"one", "two", "three"};
 
   current.push_back("zero");
   custom.push_back("zero");

@@ -48,7 +48,7 @@ class SequContainer : public Container<T> {
   }
 
   void set_value(size_type pos, const_reference value) { arr[pos] = value; }
-  const_iterator get_pointer() { return arr; }
+  iterator get_pointer() { return arr; }
 
  public:
   SequContainer() {
@@ -65,7 +65,7 @@ class SequContainer : public Container<T> {
     }
   }
 
-  SequContainer(std::initializer_list<value_type> const &items) {
+  explicit SequContainer(std::initializer_list<value_type> const &items) {
       cont_size = items.size();
       arr = new T[cont_size+1]();
       std::copy(items.begin(), items.end(), arr);
@@ -125,14 +125,21 @@ class SequContainer : public Container<T> {
       *pos = *(pos + 1);
     }
     arr[cont_size - 1] = 0;
-    cont_size--;
+    --cont_size;
   }
 
   virtual void push_back() {}
 
   virtual void pop_back() {
     arr[cont_size] = value_type(0);
-    cont_size--;
+    --cont_size;
+  }
+
+  virtual SequContainer<T> operator= (SequContainer<T> &&s) {
+    move_content(&s);
+    cont_size = s.size();
+    arr = s.get_pointer();
+    return *this;
   }
 };
 }  // namespace s21

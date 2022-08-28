@@ -19,16 +19,16 @@ class Array : public SequContainer<T> {
     void copy_content(const Array &other) {
         if (_Size != other.size()) throw std::out_of_range("Out of range!");
         SequContainer<T>::set_size(other.size());
-        const_iterator _first = &(other.front());
-        const_iterator _last = &(other.back()) + 1;
-        std::copy(_first, _last, begin());
+        const T *_first = &(other.front());
+        const T *_last = _first + other.size();
+        std::copy(_first, _last, _A_elems);
     }
 
  public:
     Array() {
         SequContainer<T>::set_size(_Size);
     }
-    Array(std::initializer_list<value_type> const& items) {
+    explicit Array(std::initializer_list<value_type> const& items) {
         if (items.size() != _Size) throw std::out_of_range("Out of range!");
         SequContainer<T>::set_size(_Size);
         auto it = items.begin();
@@ -46,7 +46,7 @@ class Array : public SequContainer<T> {
 
     ~Array() {}
 
-    Array<T, _Size> operator=(const Array &a) {
+    Array<T, _Size> &operator=(const Array &a) {
         copy_content(a);
         return *this;
     }
@@ -81,7 +81,7 @@ class Array : public SequContainer<T> {
         return _A_elems;
     }
 
-    size_type max_size() {
+    size_type max_size() override {
         return _Size;
     }
 

@@ -36,7 +36,7 @@ class Vector : public SequContainer<T> {
 
   explicit Vector(size_type n) : SequContainer<T>::SequContainer(n) { v_capacity = n; }
 
-  Vector(std::initializer_list<value_type> const &items)
+  explicit Vector(std::initializer_list<value_type> const &items)
       : SequContainer<T>::SequContainer(items) {
     v_capacity = items.size();
   }
@@ -109,7 +109,7 @@ class Vector : public SequContainer<T> {
     if (v_capacity == amount) {
       v_capacity *= 2;
       T* newArr = new T[v_capacity];
-      for (size_type i = 0, j = 0; i < newSize; i++, j++) {
+      for (size_type i = 0, j = 0; i < newSize; ++i, ++j) {
         if (&temp[i] != position) {
           newArr[i] = temp[j];
         } else {
@@ -120,7 +120,7 @@ class Vector : public SequContainer<T> {
       }
       SequContainer<T>::assign_array(newArr);
     } else {
-      for (size_type i = newSize - 1; ; i--) {
+      for (size_type i = newSize - 1; ; --i) {
         if (&temp[i] == position) {
           temp[i] = T(args...);
           break;
