@@ -1,2 +1,8 @@
-docker build . -t mydock:1.0
-docker run -it -v"$(pwd):/project" --rm mydock:1.0
+# Build
+docker build . -t cppdock:1.0
+
+# Run
+docker run -it -v"$(pwd):/project" --rm cppdock:1.0
+
+# Delete
+docker rmi -f cppdock:1.0
