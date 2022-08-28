@@ -135,6 +135,10 @@ class List {
  public:
   size_t size() { return l_size_; }
   bool empty() { return size() == 0; }
+  size_type max_size() {
+    return std::allocator<s21::List<value_type>::Node>().max_size();
+  }
+
   // Default constructor, creates empty list
   List() { init(); }
 
@@ -254,23 +258,39 @@ class List {
   }
 
   void pop_front() {
-    iterator it = begin();
-    head_ = head_->next;
-    tail_->next->next = head_->next;
-    delete it.get_current();
-    minus_size();
-    tail_->next->value = size();
+    if (!(empty())) {
+      if (l_size_ == 1) {
+        delete head_->next;
+        head_ = tail_;
+        set_size(0);
+      } else {
+        iterator it = begin();
+        head_ = head_->next;
+        tail_->next->next = head_->next;
+        delete it.get_current();
+        minus_size();
+        tail_->next->value = size();
+      }
+    }
   }
 
   void pop_back() {
-    iterator it = end();
-    it--;
-    tail_->prev->next = tail_->next;
-    tail_->next->prev = tail_->prev;
-    tail_ = tail_->prev;
-    delete it.get_current();
-    minus_size();
-    tail_->next->value = size();
+    if (!(empty())) {
+      if (l_size_ == 1) {
+        delete head_->next;
+        head_ = tail_;
+        set_size(0);
+      } else {
+        iterator it = end();
+        it--;
+        tail_->prev->next = tail_->next;
+        tail_->next->prev = tail_->prev;
+        tail_ = tail_->prev;
+        delete it.get_current();
+        minus_size();
+        tail_->next->value = size();
+      }
+    }
   }
 
   void merge(List<T>& other) {

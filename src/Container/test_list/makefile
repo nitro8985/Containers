@@ -14,7 +14,7 @@ endif
 
 debug: clean
 	$(CC) -g $(STD) *.cpp -o $(OUT) $(LIBS)
-	make run
+# make run
 
 test: clean
 #	cd test/
@@ -39,5 +39,5 @@ check:
 	python3 ../../../materials/linters/cpplint.py --extension=cpp,h test.cpp ../list.h
 	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem --suppress=unusedFunction test/*.cpp test/*.h lib/*.cpp lib/*.h
 
-leaks: test
-	$(LEAKS)  ./$(OUT)
+leaks: debug
+	$(LEAKS) ./$(OUT)

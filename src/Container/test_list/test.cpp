@@ -121,6 +121,8 @@ TEST(empty, case_1) {
   EXPECT_TRUE(s21_list.empty());
   s21_list.push_front(21);
   EXPECT_FALSE(s21_list.empty());
+  s21_list.pop_front();
+  EXPECT_TRUE(s21_list.empty());
 }
 
 TEST(copy_list, case_1) {
