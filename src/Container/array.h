@@ -19,7 +19,7 @@ class Array : public SequContainer<T> {
     void copy_content(const Array &other) {
         if (_Size != other.size()) throw std::out_of_range("Out of range!");
         SequContainer<T>::set_size(other.size());
-        const T *_first = &(other.front());
+        const T *_first = &other.front();
         const T *_last = _first + other.size();
         std::copy(_first, _last, _A_elems);
     }
@@ -59,10 +59,10 @@ class Array : public SequContainer<T> {
     const_reference front() const override { return _A_elems[0]; }
 
     const_reference back() const override {
-        size_type amount = 0;
-        if (_Size > 0) amount = _Size - 1;
-
-        return _A_elems[amount];
+        const_iterator it = &front();
+        if (_Size > 0)
+            it = &front() + _Size - 1;
+        return *it;
     }
 
     reference at(size_type pos) override {

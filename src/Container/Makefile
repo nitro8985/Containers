@@ -1,27 +1,30 @@
 CC=g++
-TEST=test
+TEST=test.out
 LIBS=-lgtest -lpthread
+CFLAGS=
+OPEN=open
 
 all:
 
-test: vector_test array_test
+test:
+	$(CC) ./test_vector/test_vec.cpp ./test_vector/test.cpp ./test_vector/test_main.cpp -o $(TEST) $(LIBS)
+	make run
 
 run:
 	./$(TEST)
 
-vector_test:
-	$(CC) ./test_vector/test.cpp ./test_vector/test_main.cpp -o $(TEST) $(LIBS)
+debug_test:
+	$(CC) ./test_vector/*.cpp -o $(TEST) $(LIBS) -g
 	make run
 
-array_test:
-	g++ ./test_array/test.cpp ./test_array/test_main.cpp -o $(TEST) $(LIBS)
+gcov_report:
+	$(CC) $(CFLAGS) -o $(TEST) --coverage ./test_vector/*.cpp $(LIBS)
 	make run
-
-vector_debug_test:
-	$(CC) ./test_vector/test.cpp ./test_vector/test_main.cpp -o $(TEST) $(LIBS) -g
-
-array_debug_test:
-	$(CC) ./test_array/test.cpp ./test_array/test_main.cpp -o $(TEST) $(LIBS) -g
+	lcov -t "$(TEST)" -o test.info -c -d .
+	lcov -q --remove test.info "/usr/include/*" -o test.info
+	lcov -q --remove test.info "/usr/local/*" -o test.info
+	genhtml -o report test.info
+	$(OPEN) report/index.html
 
 style:
 	cp ../../materials/linters/CPPLINT.cfg ./
@@ -31,4 +34,4 @@ check:
 		cppcheck --quiet --enable=all --language=c++ --suppress=missingInclude --suppress=unusedFunction sequcontainer.h vector.h array.h test_array/*.cpp test_vector/*.cpp
 
 clean:
-	rm -rf $(TEST)
+	rm -rf *.o *.a *.out *.gcda *.gcno *.info *.dSYM *.info report *.exe $(TEST)

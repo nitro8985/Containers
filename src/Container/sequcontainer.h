@@ -41,10 +41,7 @@ class SequContainer : public Container<T> {
     void set_pointer(T *pointer) { arr = pointer; }
 
     reference get_value(size_type pos) {
-        if (pos < cont_size)
             return arr[pos];
-        else
-            throw std::out_of_range("Wrong index");
     }
 
     void set_value(size_type pos, const_reference value) { arr[pos] = value; }
@@ -125,8 +122,6 @@ class SequContainer : public Container<T> {
         arr[cont_size - 1] = 0;
         --cont_size;
     }
-
-    virtual void push_back() {}
 
     virtual void pop_back() {
         arr[cont_size] = value_type(0);
