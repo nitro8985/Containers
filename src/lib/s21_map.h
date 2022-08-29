@@ -91,7 +91,7 @@ T &s21_map<Key, T, _tree>::operator[](const Key &key) {
 
 template <typename Key, typename T, typename _tree>
 void s21_map<Key, T, _tree>::merge(s21_map &other) {
-    for (iterator i = _tree::begin(); i != _tree::end(); i++) {
+    for (iterator i = _tree::begin(); i != _tree::end(); ++i) {
         if (other.contains((*i).first)) {
             other.delete_node(
                 std::pair<Key, T>{(*i).first, other.at((*i).first)});
@@ -138,6 +138,12 @@ s21_map<Key, T, _tree>::insert(const value_type &value) {
 template <typename Key, typename T, typename _tree>
 std::pair<typename s21_map<Key, T, _tree>::iterator, bool>
 s21_map<Key, T, _tree>::insert(const Key &key, const T &obj) {
+    return insert(std::pair<Key, T>(key, obj));
+}
+
+template <typename Key, typename T, typename _tree>
+std::pair<typename s21_map<Key, T, _tree>::iterator, bool>
+s21_map<Key, T, _tree>::insert_or_assign(const Key &key, const T &obj) {
     bool ret = false;
     if (contains(key)) {
         at(key) = obj;
@@ -149,12 +155,6 @@ s21_map<Key, T, _tree>::insert(const Key &key, const T &obj) {
         ret = true;
     }
     return std::pair<typename s21_map<Key, T>::iterator, bool>{i, ret};
-}
-
-template <typename Key, typename T, typename _tree>
-std::pair<typename s21_map<Key, T, _tree>::iterator, bool>
-s21_map<Key, T, _tree>::insert_or_assign(const Key &key, const T &obj) {
-    return insert(key, obj);
 }
 
 template <typename Key, typename T, typename _tree>

@@ -53,12 +53,12 @@ TEST_F(map_test, out_access_ret) {
     ASSERT_EQ(stdm[99], s21m[99]);
 }
 
-// TEST_F(map_test, ins_or_assign) {
-//     s21::s21_map<int, double> s21m({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
-//     std::map<int, double> stdm({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
-//     ASSERT_EQ(s21m.insert_or_assign(99, 2.34).first.operator*().second,
-//               stdm.insert_or_assign(99, 2.34).first.operator*().second);
-// }
+TEST_F(map_test, ins_or_assign) {
+    s21::s21_map<int, double> s21m({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
+    std::map<int, double> stdm({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
+    ASSERT_EQ(s21m.insert_or_assign(99, 2.34).first.operator*().second,
+              stdm.insert({99, 2.34}).first.operator*().second);
+}
 
 TEST_F(map_test, size_max_size) {
     s21::s21_map<int, double> s21m({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
@@ -115,9 +115,9 @@ TEST_F(map_test, incr_decr) {
     s21::s21_map<int, double> s21m({{7, 2}, {2, 3}, {5, 6}, {4, 99.9}});
     s21::s21_map<int, double>::iterator i = s21m.begin();
     ++i;
-    i++;
+    ++i;
     ASSERT_EQ((*i).first, 5);
     --i;
-    i--;
+    --i;
     ASSERT_EQ((*i).first, 2);
 }
