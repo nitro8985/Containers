@@ -13,7 +13,7 @@ endif
 
 test: clean
 	cd test/
-	$(CC) test/*.cpp -o $(OUT) $(LIBS)
+	$(CC) test/*.cpp -o $(OUT) $(LIBS) -g -lpthread
 	make run
 
 gcov_report: clean
@@ -34,6 +34,9 @@ check:
 	cp ../materials/linters/CPPLINT.cfg ./CPPLINT.cfg
 	python3 ../materials/linters/cpplint.py --extension=cpp,tcc test/*.cpp test/*.h lib/*
 	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem test/*.cpp test/*.h lib/*.tcc lib/*.h
+
+valgrind: clean test
+	CK_FORK=no valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=yes ./test.out
 
 leaks: test
 	$(LEAKS)  ./$(OUT)
