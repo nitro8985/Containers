@@ -217,7 +217,8 @@ s21_binary_tree<T>::s21_binary_tree(std::initializer_list<T> const &items)
 }
 
 template <typename T>
-s21_binary_tree<T>::s21_binary_tree(const s21_binary_tree &other) {
+s21_binary_tree<T>::s21_binary_tree(const s21_binary_tree &other)
+    : root_(nullptr), size_(0) {
     *this = other;
 }
 
@@ -516,7 +517,7 @@ s21_binary_tree<T> &s21_binary_tree<T>::operator=(
     const s21_binary_tree<T> &other) {
     if (*this != other) {
         clear();
-        copy_tree(other.root_);
+        copy_tree(other);
     }
     return *this;
 }
@@ -524,11 +525,8 @@ s21_binary_tree<T> &s21_binary_tree<T>::operator=(
 template <typename T>
 s21_binary_tree<T> &s21_binary_tree<T>::operator=(s21_binary_tree<T> &&other) {
     if (*this != other) {
-        clear();
-        root_ = std::move(other.root_);
-        size_ = other.size_;
-        other.root_ = nullptr;
-        other.size_ = 0;
+        swap(other);
+        other.clear();
     }
     return *this;
 }
