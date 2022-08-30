@@ -1,5 +1,5 @@
-#ifndef SRC_CONTAINER_SEQUCONTAINER_H_
-#define SRC_CONTAINER_SEQUCONTAINER_H_
+#ifndef SRC_LIB_S21_SEQUCONTAINER_H_
+#define SRC_LIB_S21_SEQUCONTAINER_H_
 
 #include "container.h"
 
@@ -44,7 +44,6 @@ class SequContainer : public Container<T> {
             return arr[pos];
     }
 
-    void set_value(size_type pos, const_reference value) { arr[pos] = value; }
     iterator get_pointer() { return arr; }
 
  public:
@@ -94,12 +93,12 @@ class SequContainer : public Container<T> {
 
     virtual iterator data() { return iterator(get_pointer()); }
 
-    bool empty() {
-        if (cont_size == 0)
-            return true;
-        else
-            return false;
-    }
+  bool empty() {
+    if (cont_size == 0)
+      return true;
+    else
+      return false;
+  }
 
     size_type size() const { return cont_size; }
 
@@ -124,7 +123,7 @@ class SequContainer : public Container<T> {
     }
 
     virtual void pop_back() {
-        arr[cont_size] = value_type(0);
+        arr[cont_size] = value_type();
         --cont_size;
     }
 
@@ -137,4 +136,4 @@ class SequContainer : public Container<T> {
 };
 }  // namespace s21
 
-#endif  // SRC_CONTAINER_SEQUCONTAINER_H_
+#endif  // SRC_LIB_S21_SEQUCONTAINER_H_

@@ -1,5 +1,5 @@
-#ifndef SRC_CONTAINER_LIST_H_
-#define SRC_CONTAINER_LIST_H_
+#ifndef SRC_LIB_S21_LIST_H_
+#define SRC_LIB_S21_LIST_H_
 
 namespace s21 {
 template <class T>
@@ -374,4 +374,4 @@ class List {
 };
 }  // namespace s21
 
-#endif  // SRC_CONTAINER_LIST_H_
+#endif  // SRC_LIB_S21_LIST_H_

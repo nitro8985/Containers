@@ -1,5 +1,5 @@
-#ifndef SRC_CONTAINER_CONTAINER_H_
-#define SRC_CONTAINER_CONTAINER_H_
+#ifndef SRC_LIB_CONTAINER_H_
+#define SRC_LIB_CONTAINER_H_
 
 #include <initializer_list>
 
@@ -12,4 +12,4 @@ class Container {
 };
 }  // namespace s21
 
-#endif  // SRC_CONTAINER_CONTAINER_H_
+#endif  // SRC_LIB_CONTAINER_H_

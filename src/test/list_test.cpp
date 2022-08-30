@@ -1,9 +1,10 @@
+#include <gtest/gtest.h>
+
 #include <iostream>
 #include <list>
 #include <string>
 
-#include "../list.h"
-#include "gtest/gtest.h"
+#include "../lib/s21_containers.h"
 
 TEST(str, case_1) {
   std::list<std::string> std_list;
@@ -463,7 +464,7 @@ TEST(splice, case_2) {
   EXPECT_EQ(s21_list_b.size(), std_list_b.size());
 }
 
-TEST(emplace, case_1) {
+TEST(list_emplace, case_1) {
   std::list<int> std_list_a{2, 4, 6, 8};
   auto it_std = std_list_a.begin();
   ++it_std;
@@ -485,7 +486,7 @@ TEST(emplace, case_1) {
   EXPECT_EQ(*new_pos_s21, *new_pos_std);
 }
 
-TEST(emplace, case_2) {
+TEST(list_emplace, case_2) {
   std::list<std::string> std_list_a{"one", "two", "three"};
   auto it_std = std_list_a.end();
   it_std--;
@@ -507,7 +508,7 @@ TEST(emplace, case_2) {
   EXPECT_EQ(*new_pos_s21, *new_pos_std);
 }
 
-TEST(emplace, case_3) {
+TEST(list_emplace, case_3) {
   std::list<std::string> std_list_a{"one", "two", "three"};
   std::string four = "four";
   std::string five = "five";
@@ -534,7 +535,7 @@ TEST(emplace, case_3) {
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
 }
 
-TEST(emplace_back, case_1) {
+TEST(list_emplace_back, case_1) {
   std::list<std::string> std_list_a{"one", "two", "three"};
   std_list_a.emplace_back(10, 'x');
 
@@ -551,7 +552,7 @@ TEST(emplace_back, case_1) {
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
 }
 
-TEST(emplace_back, case_2) {
+TEST(list_emplace_back, case_2) {
   std::list<std::string> std_list_a;
   std_list_a.emplace_back(10, 'x');
 
@@ -568,7 +569,7 @@ TEST(emplace_back, case_2) {
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
 }
 
-TEST(emplace_front, case_1) {
+TEST(list_emplace_front, case_1) {
   std::list<std::string> std_list_a;
   std_list_a.emplace_front(10, 'x');
 
@@ -585,7 +586,7 @@ TEST(emplace_front, case_1) {
   EXPECT_EQ(s21_list_a.size(), std_list_a.size());
 }
 
-TEST(emplace_front, case_2) {
+TEST(list_emplace_front, case_2) {
   std::list<std::string> std_list_a{"one", "two", "three"};
   std_list_a.emplace_front(10, 'x');
 

@@ -1,7 +1,7 @@
-#ifndef SRC_CONTAINER_ARRAY_H_
-#define SRC_CONTAINER_ARRAY_H_
+#ifndef SRC_LIB_S21_ARRAY_H_
+#define SRC_LIB_S21_ARRAY_H_
 
-#include "sequcontainer.h"
+#include "s21_sequcontainer.h"
 
 namespace s21 {
 template <class T, size_t _Size>
@@ -90,4 +90,5 @@ class Array : public SequContainer<T> {
 };
 }  // namespace s21
 
-#endif  // SRC_CONTAINER_ARRAY_H_
+#endif  // SRC_LIB_S21_ARRAY_H_
+

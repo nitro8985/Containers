@@ -1,9 +1,8 @@
-#ifndef SRC_CONTAINER_VECTOR_H_
-#define SRC_CONTAINER_VECTOR_H_
+#ifndef SRC_LIB_S21_VECTOR_H_
+#define SRC_LIB_S21_VECTOR_H_
 
 #include <memory>
-
-#include "sequcontainer.h"
+#include "s21_sequcontainer.h"
 
 namespace s21 {
 template <typename T>
@@ -145,4 +144,4 @@ class Vector : public SequContainer<T> {
 };
 }  // namespace s21
 
-#endif  // SRC_CONTAINER_VECTOR_H_
+#endif  // SRC_LIB_S21_VECTOR_H_
