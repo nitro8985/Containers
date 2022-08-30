@@ -1,8 +1,9 @@
 CC=g++
 OUT=test.out
+STD=-std=c++17
 OS=$(shell uname)
 ifeq ($(OS), Linux)
-	LIBS=-lgtest
+	LIBS=-lgtest -lpthread
 	OPEN=xdg-open
 	LEAKS=CK_FORK=no valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=yes
 else
@@ -13,16 +14,16 @@ endif
 
 test: clean
 	cd test/
-	$(CC) test/*.cpp -o $(OUT) $(LIBS) -g -lpthread
+	$(CC) $(STD) test/*.cpp -o $(OUT) $(LIBS)
 	make run
 
 gcov_report: clean
-	$(CC) -o $(OUT) --coverage $(CORE) test/*.cpp $(LIBS)
+	$(CC) $(STD) -o $(OUT) --coverage test/*.cpp $(LIBS)
 	make run
-	lcov -t "matrix_test" -o test.info -c -d .
-	lcov -q --remove test.info "/usr/include/*" -o test.info
-	lcov -q --remove test.info "/usr/local/*" -o test.info
-	genhtml -o report test.info
+	lcov -t "container_test" -o test.info -c -d . --rc lcov_function_coverage=0
+	lcov -q --remove test.info "/usr/include/*" -o test.info --rc lcov_function_coverage=0
+	lcov -q --remove test.info "/usr/local/*" -o test.info --rc lcov_function_coverage=0
+	genhtml -o report test.info --rc lcov_function_coverage=0
 
 clean:
 	rm -rf *.o *.a *.out *.gcda *.gcno *.info *.dSYM *.info report build
@@ -30,10 +31,14 @@ clean:
 run:
 	./$(OUT)
 
-check: 
+cppcheck: 
+	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem test/*.cpp test/*.h lib/*.tcc lib/*.h
+
+cpplint:
 	cp ../materials/linters/CPPLINT.cfg ./CPPLINT.cfg
 	python3 ../materials/linters/cpplint.py --extension=cpp,tcc test/*.cpp test/*.h lib/*
-	cppcheck --enable=all --language=c++ --suppress=missingIncludeSystem test/*.cpp test/*.h lib/*.tcc lib/*.h
+
+check: cpplint cppcheck
 
 valgrind: clean test
 	CK_FORK=no valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --show-reachable=yes ./test.out

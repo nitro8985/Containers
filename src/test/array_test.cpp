@@ -1,9 +1,9 @@
-#include <array>
-#include <iostream>
+#include <gtest/gtest.h>
 
-#include "../array.h"
-#include "../sequcontainer.h"
-#include "gtest/gtest.h"
+#include <iostream>
+#include <array>
+
+#include "../lib/s21_containersplus.h"
 
 TEST(construct, case_1) {
     s21::Array<int, 5> custom;
@@ -114,11 +114,11 @@ TEST(begin, case_2) {
 }
 
 TEST(end, case_1) {
-    s21::Array<int, 5> custom{9, 8, 7, 6, 5};
+  std::array<int, 5> current {9, 8, 7, 6, 5};
+  s21::Array<int, 5> custom {9, 8, 7, 6, 5};
 
-    auto itCustom = custom.end();
-
-    EXPECT_EQ(*itCustom, 0);
+  EXPECT_NO_THROW(custom.end());
+  EXPECT_NO_THROW(current.end());
 }
 
 TEST(at, case_1) {
@@ -143,14 +143,14 @@ TEST(operator_access, case_1) {
     }
 }
 
-TEST(front, case_1) {
+TEST(array_front, case_1) {
     std::array<int, 5> current{9, 8, 7, 6, 5};
     s21::Array<int, 5> custom{9, 8, 7, 6, 5};
 
     EXPECT_EQ(current.front(), custom.front());
 }
 
-TEST(back, case_1) {
+TEST(array_back, case_1) {
     std::array<int, 5> current{9, 8, 7, 6, 5};
     s21::Array<int, 5> custom{9, 8, 7, 6, 5};
 
@@ -169,16 +169,16 @@ TEST(data, case_1) {
     }
 }
 
-TEST(empty, case_1) {
+TEST(array_empty, case_1) {
     std::array<int, 5> current{9, 8, 7, 6, 5};
     s21::Array<int, 5> custom{9, 8, 7, 6, 5};
 
     EXPECT_EQ(current.empty(), custom.empty());
 }
 
-TEST(empty, case_2) {
-    std::array<int, 0> _emptCurrent;
-    s21::Array<int, 0> _emptCustom;
+TEST(array_empty, case_2) {
+  std::array<int, 0> _emptCurrent;
+  s21::Array<int, 0> _emptCustom;
 
     EXPECT_EQ(_emptCurrent.empty(), _emptCustom.empty());
 }

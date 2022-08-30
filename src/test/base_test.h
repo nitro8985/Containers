@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <stack>
 
+#include "../lib/s21_containers.h"
+
 class BaseTest : public ::testing::Test {
  protected:
     std::initializer_list<double> d = {0.1, 0.2, 0.3, 0.4};

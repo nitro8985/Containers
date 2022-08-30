@@ -2,8 +2,9 @@
 #define SRC_TEST_QUEUE_TEST_H_
 
 #include <gtest/gtest.h>
+
 #include <queue>
-#include "../lib/s21_queue.h"
+
 #include "base_test.h"
 
 class queue_test : public BaseTest {
